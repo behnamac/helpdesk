@@ -3,6 +3,11 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client.js";
 import { auth } from "../src/lib/auth.js";
 
+enum UserRole {
+  Admin = "admin",
+  Agent = "agent",
+}
+
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
 
@@ -24,9 +29,9 @@ async function seed() {
       name: "Admin",
       email,
       emailVerified: true,
-      role: "admin",
+      role: UserRole.Admin,
     },
-    update: { role: "admin", emailVerified: true },
+    update: { role: UserRole.Admin, emailVerified: true },
   });
 
   const existingAccount = await prisma.account.findFirst({
