@@ -7,7 +7,7 @@ A ticket management system that uses AI to classify, respond to, and route suppo
 ## Tech Stack
 
 - **Frontend**: React + TypeScript + Vite (port 5173)
-- **Backend**: Express + TypeScript + Bun (port 3000)
+- **Backend**: Express + TypeScript + Node.js (port 3000)
 - **Database**: PostgreSQL with Prisma ORM
 - **AI**: Claude API (Anthropic)
 - **Auth**: Database sessions
@@ -23,16 +23,16 @@ A ticket management system that uses AI to classify, respond to, and route suppo
 
 ```bash
 # Start server
-cd server && bun run dev
+cd server && npm run dev
 
 # Start client
-cd client && bun run dev
+cd client && npm run dev
 ```
 
 The client proxies `/api/*` requests to the server via Vite config.
 
 ## Key Conventions
 
-- Use Bun as the runtime and package manager (not npm/yarn)
+- Use npm as the package manager
 - Use TypeScript throughout
 - Use context7 MCP server to fetch up-to-date documentation for libraries
