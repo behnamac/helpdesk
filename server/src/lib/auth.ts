@@ -18,7 +18,7 @@ export const auth = betterAuth({
   trustedOrigins,
   plugins: [admin()],
   rateLimit: {
-    enabled: true,
+    enabled: process.env.NODE_ENV === "production",
     window: 10,
     max: 10,
   },
