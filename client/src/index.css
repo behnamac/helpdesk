@@ -164,6 +164,18 @@ html, body, #root {
 
 .field-input:disabled { opacity: 0.5; cursor: not-allowed; }
 
+.field-input--error {
+  border-color: var(--error-border) !important;
+  box-shadow: 0 0 0 3px var(--error-bg) !important;
+}
+
+.field-error {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--error-text);
+  margin-top: 2px;
+}
+
 /* ── Error banner ───────────────────────────────────────────────── */
 .login-error {
   display: flex;
