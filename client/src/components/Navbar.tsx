@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -8,6 +8,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const user = session?.user;
   const initial = user?.name?.charAt(0).toUpperCase() ?? "?";
+  const isAdmin = user?.role === "admin";
 
   async function handleSignOut() {
     await authClient.signOut();
@@ -16,11 +17,22 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-card px-6">
-      <div className="flex items-center gap-2.5">
-        <span className="text-base leading-none text-primary">◈</span>
-        <span className="font-mono text-[12px] font-medium tracking-[0.18em] text-foreground/65 uppercase">
-          Helpdesk
-        </span>
+      <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2.5">
+          <span className="text-base leading-none text-primary">◈</span>
+          <span className="font-mono text-[12px] font-medium tracking-[0.18em] text-foreground/65 uppercase">
+            Helpdesk
+          </span>
+        </div>
+
+        {isAdmin && (
+          <Link
+            to="/users"
+            className="font-mono text-[12px] tracking-[0.06em] text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Users
+          </Link>
+        )}
       </div>
 
       <div className="flex items-center gap-3">
