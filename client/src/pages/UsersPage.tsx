@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/Navbar";
 import { authClient } from "@/lib/auth-client";
 import { Badge } from "@/components/ui/badge";
@@ -20,15 +20,13 @@ type User = {
 };
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    authClient.admin.listUsers({ query: { limit: 100 } }).then(({ data }) => {
-      setUsers((data?.users as User[]) ?? []);
-      setLoading(false);
-    });
-  }, []);
+  const { data: users = [], isPending } = useQuery({
+    queryKey: ["users"],
+    queryFn: () =>
+      authClient.admin
+        .listUsers({ query: { limit: 100 } })
+        .then(({ data }) => (data?.users as User[]) ?? []),
+  });
 
   return (
     <div className="min-h-svh bg-background">
@@ -62,7 +60,7 @@ export default function UsersPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {loading ? (
+              {isPending ? (
                 <TableRow>
                   <TableCell colSpan={4} className="py-12 text-center text-sm text-muted-foreground">
                     Loading users…
