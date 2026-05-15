@@ -73,3 +73,11 @@ The client proxies `/api/*` requests to the server via Vite config.
 - After running `npx shadcn@latest add`, move generated files from `client/@/` to `client/src/` (shadcn resolves `@/` as a literal directory in this setup)
 - Use react-hook-form + zod for all form validation
 - Use context7 MCP server to fetch up-to-date documentation for libraries
+
+## Testing
+
+- Use the `e2e-test-writer` agent to write Playwright end-to-end tests
+- Launch it after implementing any new page, user flow, or significant UI feature
+- Tests live in `client/e2e/` and use the Playwright config at `client/playwright.config.ts`
+- Always cover the golden path and key edge cases (e.g. auth redirects, role-gated routes, form validation errors)
+- Seed users (`admin` and `agent` roles) are available via `server/prisma/seed.ts` — use their credentials in test fixtures
